@@ -1188,7 +1188,9 @@ a.proj:hover .cta .go svg{transform:translateX(3px)}
 header .who{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.3);font-size:.9rem;color:rgba(255,255,255,.9);max-width:70ch}
 header .who b{font-family:var(--f-mono);font-weight:400;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-right:8px}
 header .hero-logo{position:absolute;right:-62px;top:50%;width:704px;height:704px;margin-top:-362px;z-index:-1;pointer-events:none;overflow:visible}
-header .hero-logo path{fill:rgba(255,255,255,.2);stroke:rgba(255,255,255,.7);stroke-width:1.5px;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+header .hero-logo g use{fill:#fff;stroke:#fff}
+header .hero-logo .hl-fill{opacity:.05}
+header .hero-logo .hl-line{opacity:.25}
 @media (max-width:1199px){header .hero-logo{width:528px;height:528px;margin-top:-264px;right:-104px}}
 @media (max-width:640px){header .hero-logo{width:374px;height:374px;margin-top:-187px;right:-117px;opacity:.7}}
 header h1{max-width:16ch}
@@ -1215,7 +1217,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
     <h1>Optimiser la <em>liquidité</em> concentrée.</h1>
     <p>Les outils interactifs qui accompagnent un travail de maturité sur Uniswap v3 : comment fonctionnent les pools à liquidité concentrée, et comment choisir où placer ses fonds pour toucher des frais sans trop s'exposer aux risques.</p>
     <div class="who"><span><b>Auteur</b>Quentin Mathil · 305</span><span><b>Accompagnement</b>Mme Olszak-Duquenne</span></div>
-    <svg class="hero-logo" viewBox="-135 -135 270 270" aria-hidden="true" focusable="false"><path d="M-125 0 L0 0 L66.4 -124.9 C27.9 -52.4 -52 0 -125 0 Z M125 0 L0 0 L-66.4 124.9 C-27.9 52.4 52 0 125 0 Z"/></svg>
+    <svg class="hero-logo" viewBox="-135 -135 270 270" aria-hidden="true" focusable="false"><defs><path id="hlP" d="M-125 0 L0 0 L66.4 -124.9 C27.9 -52.4 -52 0 -125 0 Z M125 0 L0 0 L-66.4 124.9 C-27.9 52.4 52 0 125 0 Z"/><mask id="hlM" maskUnits="userSpaceOnUse" x="-200" y="-200" width="400" height="400"><rect x="-200" y="-200" width="400" height="400" fill="#fff"/><use href="#hlP" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round"/></mask></defs><g class="hl-fill"><use href="#hlP" stroke-width="12" stroke-linejoin="round"/></g><g class="hl-line" mask="url(#hlM)"><use href="#hlP" stroke-width="13.2" stroke-linejoin="round"/></g></svg>
   </header>
   <main class="hub-main">
 
