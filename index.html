@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TM · Liquidité concentrée — les outils</title>
+<meta name="description" content="Point d'entrée vers les outils interactifs du travail de maturité sur Uniswap v3 et la liquidité concentrée (CLMM).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 30 70 47 100 50C70 53 53 70 50 100C47 70 30 53 0 50C30 47 47 30 50 0Z' fill='%23f50fb4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Fragment+Mono&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;485;535;600&family=Inter+Tight:wght@600&display=swap">
+<script>
+  /* thème choisi sur ce site ou sur la présentation CLMM (même clé) */
+  try{ const t=localStorage.getItem('clmm-theme'); if(t==='dark'||t==='light') document.documentElement.dataset.theme=t; }catch(e){}
+</script>
+<style>
+/* ===== Jetons de la DA « Présentation CLMM » (Uniswap App + Unichain) ===== */
+:root{
+  --bg:#ffffff; --surface:#ffffff; --field:#f9f9f9; --hover:rgba(34,34,34,.08); --ink:#131313; --text:#0a0a0a;
+  --muted:rgba(19,19,19,.63); --faint:#737373; --line:#e5e5e5;
+  --accent:#f50fb4; --accent-ink:#ffffff; --accent-soft:#ffeffb; --pink-line:#ffd9f1;
+  --uni-1:#f50fb4; --uni-2:#fc76fe; --card:#f4f3f1; --card-line:rgba(245,15,180,.11); --ddot:rgba(245,15,180,.20);
+  --good:#21c95e; --warn:#f5a524;
+  --f-serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --f-display:"Bricolage Grotesque", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-label:"Inter Tight", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"Fragment Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131313; --surface:#131313; --field:#1b1b1b; --hover:rgba(255,255,255,.12); --ink:#ffffff; --text:#f5f5f5;
+    --muted:rgba(255,255,255,.65); --faint:#9b9b9b; --line:#2a2a2a;
+    --accent:#fc72ff; --accent-ink:#131313; --accent-soft:#361a37; --pink-line:rgba(252,114,255,.22);
+    --card:#1c1a1e; --card-line:rgba(252,114,255,.08); --ddot:rgba(252,114,255,.16); --good:#40d77a; --warn:#ffbf3c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131313; --surface:#131313; --field:#1b1b1b; --hover:rgba(255,255,255,.12); --ink:#ffffff; --text:#f5f5f5;
+  --muted:rgba(255,255,255,.65); --faint:#9b9b9b; --line:#2a2a2a;
+  --accent:#fc72ff; --accent-ink:#131313; --accent-soft:#361a37; --pink-line:rgba(252,114,255,.22);
+  --card:#1c1a1e; --card-line:rgba(252,114,255,.08); --ddot:rgba(252,114,255,.16); --good:#40d77a; --warn:#ffbf3c; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  transition:background-color .3s ease,color .3s ease}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:16px 16px 64px;display:flex;flex-direction:column;gap:56px}
+.star{display:inline-block;width:12px;height:12px;background:currentColor;clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);flex:none}
+.lbl{font-family:var(--f-label);font-weight:600;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.mono{font-family:var(--f-mono)}
+
+/* ===== Bouton mode sombre / clair (même interrupteur que la présentation) ===== */
+.theme-sw{position:fixed;z-index:40;top:calc(env(safe-area-inset-top,0px) + 14px);right:calc(env(safe-area-inset-right,0px) + 14px);width:68px;height:36px;padding:0;border:0;border-radius:999px;background:none;cursor:pointer;box-shadow:0 6px 18px -8px rgba(0,0,0,.35)}
+.theme-sw:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sw-track{position:absolute;inset:0;border-radius:999px;overflow:hidden;display:block}
+.sw-bg{position:absolute;inset:0;border-radius:inherit;background:#e4e4e7;transition:background-color .35s ease}
+.theme-sw[aria-checked="true"] .sw-bg{background:var(--accent)}
+.sw-ic{position:absolute;top:9px;width:18px;height:18px;color:#8a8a93;transition:color .3s ease}
+.sw-sun{left:9px}.sw-moon{right:9px}
+.theme-sw[aria-checked="true"] .sw-ic{color:#fff}
+.sw-thumb{position:absolute;top:4px;left:4px;width:40px;height:28px;border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.14),0 3px 8px -2px rgba(0,0,0,.22);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.theme-sw[aria-checked="true"] .sw-thumb{transform:translateX(20px)}
+
+/* ===== Héros magenta quadrillé (Unichain) ===== */
+header.hero{position:relative;isolation:isolate;overflow:hidden;color:#fff;border-radius:28px;padding:54px 44px 40px;min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;gap:18px;
+  background:radial-gradient(90% 120% at 90% -10%,var(--uni-2),transparent 60%),linear-gradient(120deg,var(--uni-1) 0%,#ff3fcf 55%,#fc5cf0 100%)}
+header.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.16) 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:linear-gradient(180deg,#000 10%,transparent 95%);mask-image:linear-gradient(180deg,#000 10%,transparent 95%)}
+.pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:4px 12px;border-radius:999px}
+.hero h1{margin:0;font-family:var(--f-display);font-weight:600;font-variation-settings:"opsz" 96;font-size:clamp(2.6rem,6.2vw,5rem);letter-spacing:-.045em;line-height:.98;max-width:13ch;text-wrap:balance}
+.hero h1 em{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.hero p{margin:0;max-width:60ch;font-size:1.1rem;line-height:1.55;color:rgba(255,255,255,.9)}
+.hero .who{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:6px;padding-top:16px;border-top:1px solid rgba(255,255,255,.3);font-size:.88rem;color:rgba(255,255,255,.88)}
+.hero .who b{font-family:var(--f-mono);font-weight:400;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-right:8px}
+/* décor : histogramme de liquidité par ticks, avec la plage active */
+.hero-liq{position:absolute;right:56px;top:64px;width:400px;height:auto;z-index:-1;pointer-events:none}
+.hl-bar{fill:rgba(255,255,255,.22)}
+.hl-bar.in{fill:rgba(255,255,255,.9)}
+.hl-axis{stroke:rgba(255,255,255,.55);stroke-width:1.5}
+.hl-range{fill:rgba(255,255,255,.10);stroke:rgba(255,255,255,.65);stroke-width:1;stroke-dasharray:4 4}
+.hl-price{stroke:#fff;stroke-width:1.5;stroke-dasharray:5 4}
+.hl-t{fill:#fff;font:400 11px var(--f-mono);letter-spacing:.04em}
+.hl-eq{fill:#fff;font:italic 26px var(--f-serif)}
+@media (max-width:1100px){.hero-liq{opacity:.35;right:-60px}}
+@media (max-width:640px){.wrap{padding-top:62px}header.hero{padding:40px 22px 26px;min-height:0}.hero-liq{display:none}.hero .who{flex-direction:column}}
+
+/* ===== Titres de section ===== */
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.sec-head h2{margin:0;font-family:var(--f-display);font-weight:600;font-variation-settings:"opsz" 60;font-size:2rem;letter-spacing:-.03em;line-height:1.15;
+  background:linear-gradient(64deg,var(--uni-1),var(--uni-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-head h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400}
+.sec-head p{margin:0;color:var(--muted);max-width:68ch}
+
+/* ===== Cartes des projets ===== */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:16px}
+.proj{position:relative;display:flex;flex-direction:column;border-radius:24px;background:var(--field);border:1px solid transparent;overflow:hidden;text-decoration:none;color:var(--ink);
+  transition:background-color .25s ease,border-color .25s ease,transform .25s cubic-bezier(.2,.7,.2,1)}
+a.proj:hover{background:var(--hover);transform:translateY(-2px)}
+a.proj:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.proj .viz{position:relative;height:190px;margin:8px 8px 0;border-radius:18px;overflow:hidden;
+  background:radial-gradient(circle,var(--ddot) 1px,transparent 1.4px) 0 0/14px 14px,var(--surface);border:1px solid var(--line)}
+.proj.live .viz{background:radial-gradient(90% 120% at 90% -10%,var(--uni-2),transparent 60%),linear-gradient(120deg,var(--uni-1),#ff3fcf 55%,#fc5cf0);border-color:transparent}
+.proj.live .viz::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.16) 1px,transparent 1px);background-size:24px 24px;-webkit-mask-image:linear-gradient(180deg,#000,transparent);mask-image:linear-gradient(180deg,#000,transparent)}
+.proj .viz svg{position:absolute;inset:0;width:100%;height:100%}
+.proj .body{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
+.proj .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.num{font-family:var(--f-serif);font-style:italic;font-size:2.2rem;line-height:.8;background:linear-gradient(64deg,var(--uni-1),var(--uni-2));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:4px}
+.status{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);padding:3px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.status.on{color:var(--good)} .status.wip{color:var(--accent)} .status.soon{color:var(--faint)}
+.status.on::before{box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 22%,transparent)}
+.proj h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:1.4rem;letter-spacing:-.02em;line-height:1.2}
+.proj p{margin:0;color:var(--muted);font-size:.96rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tags span{font-size:.78rem;padding:2px 9px;border-radius:999px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.cta{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:535;font-size:.92rem}
+.cta .go{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:16px;background:var(--accent);color:var(--accent-ink)}
+.cta .go svg{width:16px;height:16px;transition:transform .25s ease}
+a.proj:hover .cta .go svg{transform:translateX(3px)}
+.cta .url{font-family:var(--f-mono);font-size:.74rem;color:var(--faint);overflow-wrap:anywhere}
+.cta .wait{display:inline-flex;align-items:center;padding:9px 16px;border-radius:16px;background:var(--accent-soft);color:var(--accent)}
+/* illustrations des cartes */
+.v-axis{stroke:var(--line);stroke-width:1.5;fill:none}
+.v-band{fill:color-mix(in srgb,var(--accent) 14%,transparent)}
+.v-line{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.v-line2{fill:none;stroke:color-mix(in srgb,var(--accent) 45%,var(--faint));stroke-width:1.6;stroke-dasharray:4 4}
+.v-t{fill:var(--faint);font:400 10.5px var(--f-mono);letter-spacing:.04em}
+.v-big{fill:var(--accent);font:italic 30px var(--f-serif)}
+.w-curve{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round}
+.w-axis{stroke:rgba(255,255,255,.55);stroke-width:1.4;fill:none}
+.w-rect{fill:rgba(255,255,255,.16);stroke:rgba(255,255,255,.7);stroke-dasharray:4 4}
+.w-eq{fill:#fff;font:italic 24px var(--f-serif)}
+.w-t{fill:#fff;font:400 10.5px var(--f-mono);letter-spacing:.04em}
+.soon-viz{display:grid;place-items:center;height:100%;color:var(--faint);font-family:var(--f-serif);font-style:italic;font-size:2.4rem;opacity:.75}
+
+/* ===== Fil du TM ===== */
+.road{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:st}
+.road li{position:relative;padding:18px 18px 20px;border-radius:20px;background:var(--field);display:flex;flex-direction:column;gap:6px}
+.road li .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px}
+.road li.done .k{color:var(--good)} .road li.now .k{color:var(--accent)}
+.road li b{font-family:var(--f-display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;line-height:1.25}
+.road li span.d{font-size:.86rem;color:var(--muted)}
+.road li.now{background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--pink-line)}
+.arrow{font-family:var(--f-serif);font-style:italic;color:var(--accent)}
+@media (max-width:1000px){.road{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.road{grid-template-columns:1fr}}
+
+/* ===== Pied de page ===== */
+footer{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:.84rem;color:var(--muted)}
+footer p{margin:0;max-width:72ch}
+footer .brand{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-family:var(--f-label);font-weight:600;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase}
+
+@media (min-width:1200px){.wrap{padding-top:24px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<button id="themeBtn" class="theme-sw" type="button" role="switch" aria-checked="false" aria-label="Passer en mode sombre" title="Mode sombre / mode clair">
+  <span class="sw-track"><span class="sw-bg"></span>
+    <svg class="sw-ic sw-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <svg class="sw-ic sw-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+  </span>
+  <span class="sw-thumb"></span>
+</button>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="pill"><span class="star" style="color:#fff"></span>Travail de maturité</span>
+    <h1>La liquidité concentrée, <em>en pratique.</em></h1>
+    <p>Les outils interactifs qui accompagnent un travail de maturité sur Uniswap v3 : comment fonctionnent les pools à liquidité concentrée, et comment choisir où placer ses fonds pour toucher des frais sans trop s'exposer aux risques.</p>
+    <div class="who">
+      <span><b>Auteur</b>Quentin Mathil · 305</span>
+      <span><b>Accompagnement</b>Mme Olszak-Duquenne</span>
+    </div>
+    <svg class="hero-liq" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+      <text class="hl-eq" x="250" y="34">L(p)</text>
+      <rect class="hl-range" x="130" y="40" width="140" height="210" rx="4"/>
+      <g id="hlBars"></g>
+      <line class="hl-axis" x1="10" y1="250" x2="390" y2="250"/>
+      <line class="hl-price" x1="205" y1="52" x2="205" y2="250"/>
+      <text class="hl-t" x="132" y="272">p_a</text>
+      <text class="hl-t" x="244" y="272">p_b</text>
+      <text class="hl-t" x="211" y="64">P</text>
+    </svg>
+  </header>
+
+  <main style="display:flex;flex-direction:column;gap:56px">
+
+    <section aria-labelledby="h-proj">
+      <div class="sec-head">
+        <span class="lbl">Projets</span>
+        <h2 id="h-proj">Les <em>outils</em></h2>
+        <p>Chaque outil est un site indépendant. Le travail de maturité lui-même est un document écrit ; ces pages sont des ressources complémentaires pour les lecteurs qui veulent manipuler les formules et les données.</p>
+      </div>
+
+      <div class="projects">
+
+        <!-- 01 · Présentation CLMM (en ligne) -->
+        <a class="proj live" href="https://dex-v3-presentation.vercel.app/" target="_blank" rel="noopener">
+          <div class="viz">
+            <svg viewBox="0 0 400 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <path class="w-axis" d="M40 18 V162 H370"/>
+              <rect class="w-rect" x="40" y="132" width="190" height="30"/>
+              <path class="w-curve" id="wCurve" d=""/>
+              <circle cx="230" cy="132" r="5.5" fill="#fff"/>
+              <text class="w-eq" x="250" y="54">x · y = k</text>
+              <text class="w-t" x="240" y="124">P = 2 000</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="top"><span class="num">01</span><span class="status on">En ligne</span></div>
+            <h3>Comprendre la liquidité concentrée</h3>
+            <p>Un cours interactif sur les CLMM : on part de x·y = k, on le déforme pas à pas jusqu'à Uniswap v3, et chaque formule se manipule dans des laboratoires.</p>
+            <div class="tags"><span>Uniswap v2 → v3</span><span>√P et ticks</span><span>Frais</span><span>Perte impermanente</span><span>Laboratoires</span></div>
+            <div class="cta"><span class="url">dex-v3-presentation.vercel.app</span><span class="go">Ouvrir<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          </div>
+        </a>
+
+        <!-- 02 · Simulateur de volatilité (en préparation) -->
+        <article class="proj">
+          <div class="viz">
+            <svg viewBox="0 0 400 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <path class="v-axis" d="M30 20 V165 H380"/>
+              <path class="v-band" id="vBand" d=""/>
+              <path class="v-line2" id="vLine2" d=""/>
+              <path class="v-line" id="vLine" d=""/>
+              <text class="v-big" x="318" y="52">σ</text>
+              <text class="v-t" x="36" y="182">180 j</text>
+              <text class="v-t" x="352" y="182">auj.</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="top"><span class="num">02</span><span class="status wip">En préparation</span></div>
+            <h3>Simulateur d'estimateurs de volatilité</h3>
+            <p>On choisit une pool et un horizon de réajustement, on compare la volatilité σ donnée par chaque estimateur, puis on en déduit la largeur de plage qui correspond au risque de sortie accepté.</p>
+            <div class="tags"><span>ETH/USDC</span><span>WBTC/ETH</span><span>WBTC/USDC</span><span>HYPE/USDC</span><span>SOL/USDC</span><span>QQQ/USDG</span></div>
+            <div class="cta"><span class="url">1 j · 1 sem. · 1 mois</span><span class="wait">Bientôt</span></div>
+          </div>
+        </article>
+
+        <!-- 03 · Emplacement pour le prochain outil -->
+        <article class="proj">
+          <div class="viz"><div class="soon-viz">σ → volume → TVL</div></div>
+          <div class="body">
+            <div class="top"><span class="num">03</span><span class="status soon">À venir</span></div>
+            <h3>Les relations entre les grandeurs d'une pool</h3>
+            <p>Les prochaines étapes du travail relieront la volatilité au volume échangé, puis le volume à la liquidité déposée (TVL), et ainsi de suite jusqu'au rendement.</p>
+            <div class="tags"><span>Volatilité</span><span>Volume</span><span>TVL</span><span>APR</span></div>
+            <div class="cta"><span class="url">Selon l'avancement du TM</span><span class="wait">À venir</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section aria-labelledby="h-road">
+      <div class="sec-head">
+        <span class="lbl">Avancement</span>
+        <h2 id="h-road">Le <em>fil</em> du travail</h2>
+        <p>Après le mécanisme, le travail étudie une relation à la fois, chacune dans une étape dédiée.</p>
+      </div>
+      <ol class="road">
+        <li class="done"><span class="k"><span class="star"></span>Fait</span><b>Le mécanisme des CLMM</b><span class="d">Produit constant, plages de prix, ticks, frais et risques.</span></li>
+        <li class="now"><span class="k"><span class="star"></span>En cours</span><b>La volatilité</b><span class="d">Ordres de grandeur, estimateurs, et choix de la largeur de plage.</span></li>
+        <li><span class="k"><span class="star"></span>Ensuite</span><b>Volatilité <span class="arrow">→</span> volume</b><span class="d">Les jours agités génèrent-ils plus d'échanges ?</span></li>
+        <li><span class="k"><span class="star"></span>Ensuite</span><b>Volume <span class="arrow">→</span> TVL</b><span class="d">Comment la liquidité déposée suit les frais.</span></li>
+        <li><span class="k"><span class="star"></span>Ensuite</span><b>Et ainsi de suite</b><span class="d">Jusqu'au rendement (APR) d'une position.</span></li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="brand"><span class="star"></span>TM · Liquidité concentrée</span>
+    <p>Travail de maturité de Quentin Mathil (305), accompagné par Mme Olszak-Duquenne. Contenu éducatif : rien sur ces pages n'est un conseil financier.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  /* --- thème --- */
+  const root=document.documentElement, btn=document.getElementById('themeBtn');
+  const isDark=()=>root.dataset.theme? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const paint=()=>{ const d=isDark(); btn.setAttribute('aria-checked',d); btn.setAttribute('aria-label',d?'Passer en mode clair':'Passer en mode sombre'); };
+  btn.addEventListener('click',()=>{ const n=isDark()?'light':'dark'; root.dataset.theme=n; try{localStorage.setItem('clmm-theme',n);}catch(e){} paint(); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paint);
+  paint();
+
+  const NS='http://www.w3.org/2000/svg';
+  /* --- héros : histogramme de liquidité (gaussienne autour du prix) --- */
+  const g=document.getElementById('hlBars');
+  if(g){ const n=30, x0=14, w=12.4, base=250;
+    for(let i=0;i<n;i++){ const x=x0+i*w, c=x+w/2, z=(c-205)/70;
+      const h=18+175*Math.exp(-z*z/2)*(0.85+0.15*Math.cos(i*1.7));
+      const r=document.createElementNS(NS,'rect');
+      r.setAttribute('x',x+1.5); r.setAttribute('y',base-h); r.setAttribute('width',w-3); r.setAttribute('height',h); r.setAttribute('rx',2);
+      r.setAttribute('class','hl-bar'+(c>130&&c<270?' in':'')); g.appendChild(r); } }
+
+  /* --- carte 01 : hyperbole x·y = k --- */
+  const wc=document.getElementById('wCurve');
+  if(wc){ let d=''; for(let i=0;i<=60;i++){ const x=58+i*5.2, y=162-138*Math.min(1,48/(x-10)); d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
+    wc.setAttribute('d',d); }
+
+  /* --- carte 02 : deux estimations de σ avec une bande --- */
+  const vl=document.getElementById('vLine'), v2=document.getElementById('vLine2'), vb=document.getElementById('vBand');
+  if(vl){ const N=70, xs=i=>34+i*(344/(N-1)); let s=0.55, a=[], b=[];
+    let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647-.5; };
+    for(let i=0;i<N;i++){ s+=rnd()*.09+(.5-s)*.06; if(i>38&&i<48) s+=.035; a.push(s); b.push(s*.86+rnd()*.03); }
+    const y=v=>165-v*150;
+    vl.setAttribute('d',a.map((v,i)=>(i?'L':'M')+xs(i).toFixed(1)+' '+y(v).toFixed(1)).join(''));
+    v2.setAttribute('d',b.map((v,i)=>(i?'L':'M')+xs(i).toFixed(1)+' '+y(v).toFixed(1)).join(''));
+    const up=a.map((v,i)=>xs(i).toFixed(1)+' '+y(Math.max(v,b[i])+.06).toFixed(1));
+    const dn=a.map((v,i)=>xs(i).toFixed(1)+' '+y(Math.min(v,b[i])-.06).toFixed(1)).reverse();
+    vb.setAttribute('d','M'+up.join('L')+'L'+dn.join('L')+'Z'); }
+})();
+</script>
+</body>
+</html>
