@@ -1194,6 +1194,8 @@ header .hero-logo .hl-line{opacity:.6}
 @media (max-width:1199px){header .hero-logo{width:528px;height:528px;margin-top:-264px;right:-104px}}
 @media (max-width:640px){header .hero-logo{width:374px;height:374px;margin-top:-187px;right:-117px;opacity:.7}}
 header h1{max-width:16ch}
+/* bouton seul : aligné à droite */
+.cta .wait{margin-left:auto}
 /* date de mise à jour */
 .cta .upd{display:inline-block;margin-top:3px;font-family:var(--f-body);font-size:.8rem;color:var(--muted)}
 .cta .upd time{color:var(--ink);font-weight:535}
@@ -1269,7 +1271,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
             <h3>Simulateur d'estimateurs de volatilité</h3>
             <p>On choisit une pool et un horizon de réajustement, on compare la volatilité σ donnée par chaque estimateur, puis on en déduit la largeur de plage qui correspond au risque de sortie accepté.</p>
             <div class="tags"><span>ETH/USDC</span><span>WBTC/ETH</span><span>WBTC/USDC</span><span>HYPE/USDC</span><span>SOL/USDC</span><span>QQQ/USDG</span></div>
-            <div class="cta"><span class="url">1 j · 1 sem. · 1 mois</span><span class="wait">Bientôt</span></div>
+            <div class="cta"><span class="wait">Bientôt</span></div>
           </div>
         </article>
 
@@ -1281,7 +1283,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
             <h3>Les relations entre les grandeurs d'une pool</h3>
             <p>Les prochaines étapes du travail relieront la volatilité au volume échangé, puis le volume à la liquidité déposée (TVL), et ainsi de suite jusqu'au rendement.</p>
             <div class="tags"><span>Volatilité</span><span>Volume</span><span>TVL</span><span>APR</span></div>
-            <div class="cta"><span class="url">Selon l'avancement du TM</span><span class="wait">À venir</span></div>
+            <div class="cta"><span class="wait">À venir</span></div>
           </div>
         </article>
 
@@ -1328,7 +1330,6 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
     </div>
     <div class="ft-bottom">
       <p>Ressources pédagogiques réalisées dans le cadre d'un travail de maturité. Elles ne constituent pas un conseil financier. Projet indépendant, sans lien avec Uniswap Labs.</p>
-      <button type="button" class="ft-top" onclick="window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})">Retour en haut ↑</button>
     </div>
   </div>
 </footer>
