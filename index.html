@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>TM - Optimisation de la liquidité concentrée - Hub</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-135 -135 270 270'%3E%3Cdefs%3E%3ClinearGradient id='g' gradientUnits='userSpaceOnUse' x1='-110' y1='110' x2='110' y2='-110'%3E%3Cstop offset='0' stop-color='%23f50fb4'/%3E%3Cstop offset='1' stop-color='%23fc76fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-125 0 L0 0 L66.4 -124.9 C27.9 -52.4 -52 0 -125 0 Z M125 0 L0 0 L-66.4 124.9 C-27.9 52.4 52 0 125 0 Z' fill='url(%23g)' stroke='url(%23g)' stroke-width='8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-140 -140 280 280'%3E%3Cdefs%3E%3ClinearGradient id='g' gradientUnits='userSpaceOnUse' x1='-110' y1='110' x2='110' y2='-110'%3E%3Cstop offset='0' stop-color='%23f50fb4'/%3E%3Cstop offset='1' stop-color='%23fc76fe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M-122.0 -125.0 L-123.1 -124.8 L-124.1 -124.1 L-124.8 -123.1 L-125.0 -122.0 L-125.0 122.0 L-124.8 123.1 L-124.1 124.1 L-123.1 124.8 L-122.0 125.0 L122.0 125.0 L123.1 124.8 L124.1 124.1 L124.7 123.3 L125.0 122.2 L125.0 114.8 L124.8 114.0 L124.4 113.2 L123.7 112.5 L123.0 112.2 L122.2 112.0 L114.8 111.8 L107.6 111.4 L96.0 110.2 L88.8 109.2 L83.1 108.3 L75.9 106.9 L70.2 105.6 L64.6 104.2 L57.6 102.2 L50.7 100.0 L45.2 98.1 L38.4 95.6 L33.0 93.4 L26.3 90.5 L19.8 87.3 L10.7 82.6 L1.9 77.5 L-6.7 72.1 L-13.8 67.1 L-20.8 61.8 L-28.7 55.4 L-36.3 48.6 L-43.6 41.6 L-50.6 34.2 L-57.3 26.5 L-63.6 18.5 L-69.6 10.3 L-74.4 3.0 L-79.8 -5.7 L-84.7 -14.6 L-89.2 -23.7 L-94.0 -34.3 L-96.6 -41.1 L-98.6 -46.5 L-100.9 -53.4 L-102.6 -59.0 L-104.2 -64.6 L-105.9 -71.6 L-108.3 -83.0 L-109.2 -88.8 L-110.2 -96.0 L-111.4 -107.6 L-111.8 -114.8 L-112.0 -122.2 L-112.2 -123.0 L-112.5 -123.7 L-113.0 -124.3 L-113.7 -124.7 L-114.4 -124.9Z' fill='url(%23g)'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#f50fb4">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Point d'entrée vers les outils interactifs du travail de maturité sur Uniswap v3 et la liquidité concentrée (CLMM).">
@@ -1116,6 +1116,15 @@ nav.side .side-title{color:var(--accent)!important;font-family:"Inter Tight","In
 .cex-dex td{padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
 .cex-dex td:first-child{font-weight:600;color:var(--ink);width:24%}
 
+.site-foot .ft-grid .ft-star,.ft-star{stroke:none!important}
+.sym-key{margin:.45rem 0 1.1rem;font-size:.84rem;line-height:1.55;color:var(--muted)}
+.sym-key mjx-container{color:var(--muted)}
+.box .sym-key{margin:.35rem 0 .8rem}
+.lex-back.lex-back{--mx:30%;--my:0%;background:radial-gradient(220px circle at var(--mx) var(--my),var(--lg-hi),transparent 55%),linear-gradient(180deg,var(--lg-top),var(--lg-bot))!important;-webkit-backdrop-filter:blur(22px) saturate(185%)!important;backdrop-filter:blur(22px) saturate(185%)!important;border:1px solid var(--lg-rim)!important;box-shadow:inset 0 1.5px 1px -.5px var(--lg-rim),inset 0 -1.5px 1px -.5px var(--lg-edge),inset 0 0 22px var(--lg-glow),0 16px 36px -18px var(--lg-shadow),0 2px 6px -3px var(--lg-shadow)!important;border-radius:999px;color:var(--ink);transform:translateX(-50%);animation:lexBackIn .26s ease both;transition:opacity .26s ease,transform .26s ease}
+.lex-back.lex-back:hover{color:var(--accent);transform:translateX(-50%) translateY(-1px)}
+.lex-back.lex-back.out{opacity:0;transform:translateX(-50%) translateY(8px)}
+@keyframes lexBackIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.lex-back.lex-back{animation:none;transition:none}}
 /* ===== Titres de section ===== */
 .sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
 .sec-head h2{margin:0;font-family:var(--f-display);font-weight:600;font-variation-settings:"opsz" 60;font-size:2rem;letter-spacing:-.03em;line-height:1.15;
@@ -1194,6 +1203,10 @@ header .hero-logo .hl-line{opacity:.6}
 @media (max-width:1199px){header .hero-logo{width:528px;height:528px;margin-top:-264px;right:-104px}}
 @media (max-width:640px){header .hero-logo{width:374px;height:374px;margin-top:-187px;right:-117px;opacity:.7}}
 header h1{max-width:16ch}
+.proj .tl{display:flex;align-items:center;gap:12px}
+.pico{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);flex:none}
+.pico svg{width:28px;height:28px}
+.pico.empty{background:none;box-shadow:none;border:1.5px dashed var(--line)}
 /* bouton seul : aligné à droite */
 .cta .wait{margin-left:auto}
 /* date de mise à jour */
@@ -1245,7 +1258,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
             </svg>
           </div>
           <div class="body">
-            <div class="top"><span class="num">01</span><span class="status on">En ligne</span></div>
+            <div class="top"><span class="tl"><span class="pico" aria-hidden="true"><svg viewBox="-140 -140 280 280"><defs><linearGradient id="pgC" gradientUnits="userSpaceOnUse" x1="-110" y1="110" x2="110" y2="-110"><stop offset="0" stop-color="#f50fb4"/><stop offset="1" stop-color="#fc76fe"/></linearGradient></defs><path d="M-122.0 -125.0 L-123.1 -124.8 L-124.1 -124.1 L-124.8 -123.1 L-125.0 -122.0 L-125.0 122.0 L-124.8 123.1 L-124.1 124.1 L-123.1 124.8 L-122.0 125.0 L122.0 125.0 L123.1 124.8 L124.1 124.1 L124.7 123.3 L125.0 122.2 L125.0 114.8 L124.8 114.0 L124.4 113.2 L123.7 112.5 L123.0 112.2 L122.2 112.0 L114.8 111.8 L107.6 111.4 L96.0 110.2 L88.8 109.2 L83.1 108.3 L75.9 106.9 L70.2 105.6 L64.6 104.2 L57.6 102.2 L50.7 100.0 L45.2 98.1 L38.4 95.6 L33.0 93.4 L26.3 90.5 L19.8 87.3 L10.7 82.6 L1.9 77.5 L-6.7 72.1 L-13.8 67.1 L-20.8 61.8 L-28.7 55.4 L-36.3 48.6 L-43.6 41.6 L-50.6 34.2 L-57.3 26.5 L-63.6 18.5 L-69.6 10.3 L-74.4 3.0 L-79.8 -5.7 L-84.7 -14.6 L-89.2 -23.7 L-94.0 -34.3 L-96.6 -41.1 L-98.6 -46.5 L-100.9 -53.4 L-102.6 -59.0 L-104.2 -64.6 L-105.9 -71.6 L-108.3 -83.0 L-109.2 -88.8 L-110.2 -96.0 L-111.4 -107.6 L-111.8 -114.8 L-112.0 -122.2 L-112.2 -123.0 L-112.5 -123.7 L-113.0 -124.3 L-113.7 -124.7 L-114.4 -124.9Z" fill="url(#pgC)"/></svg></span><span class="num">01</span></span><span class="status on">En ligne</span></div>
             <h3>Comprendre la liquidité concentrée</h3>
             <p>Un cours interactif sur les CLMM : on part de x·y = k, on le déforme pas à pas jusqu'à Uniswap v3, et chaque formule se manipule dans des laboratoires.</p>
             <div class="tags"><span>Uniswap v2 → v3</span><span>√P et ticks</span><span>Frais</span><span>Perte impermanente</span><span>Laboratoires</span></div>
@@ -1267,7 +1280,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
             </svg>
           </div>
           <div class="body">
-            <div class="top"><span class="num">02</span><span class="status wip">En développement</span></div>
+            <div class="top"><span class="tl"><span class="pico" aria-hidden="true"><svg viewBox="-140 -140 280 280"><defs><linearGradient id="pgV" gradientUnits="userSpaceOnUse" x1="-110" y1="110" x2="110" y2="-110"><stop offset="0" stop-color="#f50fb4"/><stop offset="1" stop-color="#fc76fe"/></linearGradient></defs><path d="M-125.0 -0.0 L-125.0 -1.5 L-124.8 -3.0 L-124.6 -4.5 L-124.4 -6.1 L-124.0 -7.6 L-123.6 -9.1 L-123.1 -10.6 L-122.5 -12.1 L-121.8 -13.6 L-121.1 -15.1 L-120.3 -16.6 L-119.4 -18.1 L-118.4 -19.7 L-117.3 -21.2 L-116.2 -22.7 L-115.0 -24.2 L-113.7 -25.7 L-112.3 -27.2 L-110.9 -28.7 L-109.4 -30.2 L-107.8 -31.8 L-106.1 -33.3 L-104.3 -34.8 L-102.5 -36.3 L-100.6 -37.8 L-98.6 -39.3 L-96.5 -40.8 L-94.4 -42.3 L-92.1 -43.9 L-89.8 -45.4 L-87.5 -46.9 L-85.0 -48.4 L-82.5 -49.9 L-79.8 -51.4 L-77.1 -52.9 L-74.4 -54.5 L-71.5 -56.0 L-68.6 -57.5 L-65.6 -59.0 L-62.5 -60.5 L-59.3 -62.0 L-56.1 -63.5 L-52.8 -65.0 L-49.4 -66.6 L-45.9 -68.1 L-42.3 -69.6 L-38.7 -71.1 L-35.0 -72.6 L-31.2 -74.1 L-27.3 -75.6 L-23.4 -77.1 L-19.4 -78.7 L-15.3 -80.2 L-11.1 -81.7 L-6.8 -83.2 L-2.5 -84.7 L1.9 -86.2 L6.4 -87.7 L11.0 -89.2 L15.6 -90.8 L20.4 -92.3 L25.2 -93.8 L30.0 -95.3 L35.0 -96.8 L40.0 -98.3 L45.2 -99.8 L50.4 -101.3 L55.6 -102.8 L61.0 -104.4 L66.4 -105.9 L71.9 -107.4 L77.5 -108.9 L83.2 -110.4 L88.9 -111.9 L94.7 -113.4 L100.6 -114.9 L106.6 -116.5 L112.7 -118.0 Q125.0 -121.0 125.0 -114.0 L125.0 114.0 Q125.0 121.0 112.7 118.0 L106.6 116.5 L100.6 114.9 L94.7 113.4 L88.9 111.9 L83.2 110.4 L77.5 108.9 L71.9 107.4 L66.4 105.9 L61.0 104.4 L55.6 102.8 L50.4 101.3 L45.2 99.8 L40.0 98.3 L35.0 96.8 L30.0 95.3 L25.2 93.8 L20.4 92.3 L15.6 90.8 L11.0 89.2 L6.4 87.7 L1.9 86.2 L-2.5 84.7 L-6.8 83.2 L-11.1 81.7 L-15.3 80.2 L-19.4 78.7 L-23.4 77.1 L-27.3 75.6 L-31.2 74.1 L-35.0 72.6 L-38.7 71.1 L-42.3 69.6 L-45.9 68.1 L-49.4 66.6 L-52.8 65.0 L-56.1 63.5 L-59.3 62.0 L-62.5 60.5 L-65.6 59.0 L-68.6 57.5 L-71.5 56.0 L-74.4 54.5 L-77.1 52.9 L-79.8 51.4 L-82.5 49.9 L-85.0 48.4 L-87.5 46.9 L-89.8 45.4 L-92.1 43.9 L-94.4 42.3 L-96.5 40.8 L-98.6 39.3 L-100.6 37.8 L-102.5 36.3 L-104.3 34.8 L-106.1 33.3 L-107.8 31.8 L-109.4 30.2 L-110.9 28.7 L-112.3 27.2 L-113.7 25.7 L-115.0 24.2 L-116.2 22.7 L-117.3 21.2 L-118.4 19.7 L-119.4 18.1 L-120.3 16.6 L-121.1 15.1 L-121.8 13.6 L-122.5 12.1 L-123.1 10.6 L-123.6 9.1 L-124.0 7.6 L-124.4 6.1 L-124.6 4.5 L-124.8 3.0 L-125.0 1.5 L-125.0 0.0Z" fill="url(#pgV)"/></svg></span><span class="num">02</span></span><span class="status wip">En développement</span></div>
             <h3>Mesurer la volatilité d'une pool</h3>
             <p>Les rendements logarithmiques, quatre estimateurs de volatilité comparés, puis la conversion de σ en largeur de plage selon l'horizon de réajustement et le risque de sortie accepté. Un laboratoire applique tout cela aux données de six pools.</p>
             <div class="tags"><span>Close-to-close</span><span>Parkinson</span><span>Garman-Klass</span><span>EWMA</span><span>Largeur de plage</span><span>6 pools</span></div>
@@ -1279,7 +1292,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
         <article class="proj">
           <div class="viz"><div class="soon-viz">σ → volume → TVL</div></div>
           <div class="body">
-            <div class="top"><span class="num">03</span><span class="status soon">À venir</span></div>
+            <div class="top"><span class="tl"><span class="pico empty" aria-hidden="true"></span><span class="num">03</span></span><span class="status soon">À venir</span></div>
             <h3>Les relations entre les grandeurs d'une pool</h3>
             <p>Les prochaines étapes du travail relieront la volatilité au volume échangé, puis le volume à la liquidité déposée (TVL), et ainsi de suite jusqu'au rendement.</p>
             <div class="tags"><span>Volatilité</span><span>Volume</span><span>TVL</span><span>APR</span></div>
@@ -1317,7 +1330,7 @@ a.proj:hover{background:var(--mx-s3,var(--hover))}
       <div class="ft-col">
         <span class="ft-h">Le projet</span>
         <a href="https://github.com/Alosoris/TM-Hub" target="_blank" rel="noopener">Code source sur GitHub ↗</a>
-        <span>Dernière mise à jour : 22 novembre 2026</span>
+        <span>Dernière mise à jour : 25 novembre 2026</span>
       </div>
       <div class="ft-col">
         <span class="ft-h">Réalisation</span>
